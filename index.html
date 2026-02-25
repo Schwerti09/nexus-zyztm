@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌀 ZYZTM NEURO-NEXUS 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap');
+    body { font-family: 'Orbitron', sans-serif; }
+    .glass {
+      background: rgba(15,23,42,0.75);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(192,38,211,0.3);
+    }
+    .neon {
+      text-shadow: 0 0 30px #C026D3, 0 0 60px #22D3EE;
+    }
+    canvas { image-rendering: pixelated; }
+  </style>
+</head>
+<body class="bg-slate-950 text-white min-h-screen overflow-hidden relative">
+  <canvas id="nexus" class="absolute inset-0 z-0"></canvas>
+
+  <div class="relative z-10 flex flex-col h-screen">
+    <div class="flex items-center justify-between px-8 pt-6">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 animate-spin"></div>
+        <span class="text-xl font-bold">ZYZTM NEURO-NEXUS</span>
+      </div>
+      <span class="text-sm text-cyan-400">KI CORE ONLINE • PHASE 1 LIVE</span>
+    </div>
+
+    <div class="flex-1 flex items-center justify-center">
+      <div id="title" class="text-center">
+        <h1 class="text-[9rem] font-black tracking-[-0.08em] leading-none neon">NEXUS</h1>
+        <p class="text-cyan-400 text-3xl -mt-6">DER ERSTE LEBENDE KI-HUB</p>
+      </div>
+    </div>
+
+    <div id="panel" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 glass rounded-3xl p-8 w-full max-w-3xl shadow-2xl border border-cyan-400/50">
+      <div class="flex justify-between items-center mb-6">
+        <div id="panel-title" class="text-3xl font-bold text-cyan-400"></div>
+        <button onclick="closePanel()" class="text-4xl text-white/40 hover:text-white">×</button>
+      </div>
+      <div id="panel-content" class="grid grid-cols-3 gap-4"></div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('nexus');
+    const ctx = canvas.getContext('2d');
+    let w, h;
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    let nodes = [
+      {id:0, label:"YouTube",  x:w*0.3, y:h*0.4, vx:0, vy:0, color:"#EF4444", type:"yt"},
+      {id:1, label:"Twitch",   x:w*0.7, y:h*0.3, vx:0, vy:0, color:"#9146FF", type:"twitch"},
+      {id:2, label:"TikTok",   x:w*0.4, y:h*0.7, vx:0, vy:0, color:"#FF0050", type:"tiktok"},
+      {id:3, label:"X",        x:w*0.6, y:h*0.6, vx:0, vy:0, color:"#FFFFFF", type:"x"},
+      {id:4, label:"Discord",  x:w*0.5, y:h*0.2, vx:0, vy:0, color:"#5865F2", type:"discord"},
+      {id:5, label:"SHOP",     x:w*0.8, y:h*0.5, vx:0, vy:0, color:"#22D3EE", type:"shop"},
+      {id:6, label:"LIVE FEED",x:w*0.2, y:h*0.6, vx:0, vy:0, color:"#10B981", type:"feed"}
+    ];
+
+    let connections = [
+      [0,1],[0,2],[0,3],[0,4],[0,5],[0,6],
+      [1,5],[2,6],[3,5],[4,6]
+    ];
+
+    let flows = [];
+    class Flow {
+      constructor(from, to) {
+        this.from = from;
+        this.to = to;
+        this.progress = Math.random();
+      }
+      update() {
+        this.progress += 0.018;
+        if (this.progress > 1) this.progress = 0;
+      }
+    }
+    connections.forEach(([a,b]) => {
+      flows.push(new Flow(nodes[a], nodes[b]));
+      flows.push(new Flow(nodes[b], nodes[a]));
+    });
+
+    let mouse = {x: w/2, y: h/2, radius: 280};
+    window.addEventListener('mousemove', e => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    function physics() {
+      for (let i = 0; i < nodes.length; i++) {
+        let n = nodes[i];
+        n.vx *= 0.92;
+        n.vy *= 0.92;
+
+        let dx = mouse.x - n.x;
+        let dy = mouse.y - n.y;
+        let dist = Math.sqrt(dx*dx + dy*dy) || 1;
+        if (dist < mouse.radius) {
+          let force = (mouse.radius - dist) / mouse.radius * 4;
+          n.vx -= (dx / dist) * force;
+          n.vy -= (dy / dist) * force;
+        }
+
+        for (let j = i+1; j < nodes.length; j++) {
+          let m = nodes[j];
+          let dx2 = m.x - n.x;
+          let dy2 = m.y - n.y;
+          let d = Math.sqrt(dx2*dx2 + dy2*dy2) || 1;
+          if (d < 180) {
+            let f = (180 - d) / 180 * 0.8;
+            n.vx -= (dx2 / d) * f;
+            n.vy -= (dy2 / d) * f;
+            m.vx += (dx2 / d) * f;
+            m.vy += (dy2 / d) * f;
+          }
+        }
+
+        n.x += n.vx;
+        n.y += n.vy;
+        n.x = Math.max(80, Math.min(w - 80, n.x));
+        n.y = Math.max(80, Math.min(h - 80, n.y));
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+
+      connections.forEach(([a,b]) => {
+        let na = nodes[a], nb = nodes[b];
+        ctx.beginPath();
+        ctx.moveTo(na.x, na.y);
+        ctx.lineTo(nb.x, nb.y);
+        ctx.strokeStyle = 'rgba(192,38,211,0.15)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+
+      flows.forEach(f => {
+        f.update();
+        let x = f.from.x + (f.to.x - f.from.x) * f.progress;
+        let y = f.from.y + (f.to.y - f.from.y) * f.progress;
+        ctx.beginPath();
+        ctx.arc(x, y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(34,211,238,0.6)';
+        ctx.fill();
+      });
+
+      nodes.forEach(n => {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 28, 0, Math.PI * 2);
+        let grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 28);
+        grd.addColorStop(0, n.color);
+        grd.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = grd;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 28, 0, Math.PI * 2);
+        ctx.strokeStyle = n.color;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.fillStyle = '#fff';
+        ctx.font = '11px Orbitron';
+        ctx.textAlign = 'center';
+        ctx.fillText(n.label, n.x, n.y + 44);
+      });
+    }
+
+    canvas.addEventListener('click', e => {
+      let rect = canvas.getBoundingClientRect();
+      let cx = e.clientX - rect.left;
+      let cy = e.clientY - rect.top;
+      nodes.forEach(n => {
+        let dx = cx - n.x;
+        let dy = cy - n.y;
+        if (Math.sqrt(dx*dx + dy*dy) < 36) {
+          openPanel(n);
+        }
+      });
+    });
+
+    function openPanel(node) {
+      document.getElementById('panel').classList.remove('hidden');
+      document.getElementById('panel-title').textContent = node.label;
+      let content = document.getElementById('panel-content');
+      content.innerHTML = '';
+      let items = ['Status: ONLINE', 'Latenz: 12ms', 'Verbindungen: ' + connections.filter(c => c.includes(node.id)).length];
+      items.forEach(item => {
+        let div = document.createElement('div');
+        div.className = 'glass rounded-xl p-4 text-center text-sm';
+        div.textContent = item;
+        content.appendChild(div);
+      });
+    }
+
+    function closePanel() {
+      document.getElementById('panel').classList.add('hidden');
+    }
+
+    function animate() {
+      physics();
+      draw();
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
