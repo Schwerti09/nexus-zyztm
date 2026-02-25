@@ -3,218 +3,166 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🌀 ZYZTM NEURO-NEXUS 2026</title>
+  <title>🌀 ZYZTM FORTNITE NEXUS • VICTORY ROYALE EDITION</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap');
-    body { font-family: 'Orbitron', sans-serif; }
-    .glass {
-      background: rgba(15,23,42,0.75);
-      backdrop-filter: blur(24px);
-      border: 1px solid rgba(192,38,211,0.3);
-    }
-    .neon {
-      text-shadow: 0 0 30px #C026D3, 0 0 60px #22D3EE;
-    }
-    canvas { image-rendering: pixelated; }
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@600;700&display=swap');
+    body { font-family: 'Space Grotesk', sans-serif; background: #0a0a0a; }
+    .fortnite-green { color: #39FF14; text-shadow: 0 0 20px #39FF14; }
+    .loot-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .loot-card:hover { transform: scale(1.08) rotate(3deg); box-shadow: 0 0 60px #39FF14; }
+    canvas { position: fixed; top: 0; left: 0; z-index: -1; }
   </style>
 </head>
-<body class="bg-slate-950 text-white min-h-screen overflow-hidden relative">
-  <canvas id="nexus" class="absolute inset-0 z-0"></canvas>
+<body class="text-white overflow-x-hidden">
 
-  <div class="relative z-10 flex flex-col h-screen">
-    <div class="flex items-center justify-between px-8 pt-6">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 animate-spin"></div>
-        <span class="text-xl font-bold">ZYZTM NEURO-NEXUS</span>
-      </div>
-      <span class="text-sm text-cyan-400">KI CORE ONLINE • PHASE 1 LIVE</span>
-    </div>
+  <!-- FORTNITE CANVAS (V-Bucks + Pickaxes falling) -->
+  <canvas id="canvas"></canvas>
 
-    <div class="flex-1 flex items-center justify-center">
-      <div id="title" class="text-center">
-        <h1 class="text-[9rem] font-black tracking-[-0.08em] leading-none neon">NEXUS</h1>
-        <p class="text-cyan-400 text-3xl -mt-6">DER ERSTE LEBENDE KI-HUB</p>
+  <!-- NAV -->
+  <nav class="fixed top-0 w-full z-50 bg-black/90 border-b-4 border-[#39FF14] py-5">
+    <div class="max-w-7xl mx-auto px-8 flex justify-between items-center">
+      <div class="flex items-center gap-4">
+        <span class="text-5xl">🛡️</span>
+        <span class="text-4xl font-black tracking-widest fortnite-green">ZYZTM NEXUS</span>
+      </div>
+      <div class="flex gap-10 text-lg font-bold">
+        <a href="#hub" class="hover:text-[#39FF14]">BATTLE HUB</a>
+        <a href="#feeds" class="hover:text-[#39FF14]">LIVE FEEDS</a>
+        <a href="#shop" class="hover:text-[#39FF14]">ITEM SHOP</a>
+        <a href="#tools" class="hover:text-[#39FF14]">KI TOOLS</a>
       </div>
     </div>
+  </nav>
 
-    <div id="panel" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 glass rounded-3xl p-8 w-full max-w-3xl shadow-2xl border border-cyan-400/50">
-      <div class="flex justify-between items-center mb-6">
-        <div id="panel-title" class="text-3xl font-bold text-cyan-400"></div>
-        <button onclick="closePanel()" class="text-4xl text-white/40 hover:text-white">×</button>
+  <!-- HERO - VICTORY ROYALE -->
+  <section class="min-h-screen flex items-center justify-center relative bg-[radial-gradient(#39FF14_1px,transparent_1px)] bg-[length:50px_50px]">
+    <div class="text-center z-10">
+      <div class="text-[#FFD700] text-6xl font-black tracking-widest mb-4 animate-pulse">VICTORY ROYALE</div>
+      <h1 class="text-[9rem] leading-none font-black tracking-[-0.12em] text-transparent bg-clip-text bg-gradient-to-br from-[#39FF14] via-[#FF00FF] to-[#00FFFF]">ZYZTM</h1>
+      <p class="text-7xl -mt-8 text-[#39FF14]">FORTNITE NEXUS 2026</p>
+      <p class="mt-8 text-3xl max-w-2xl mx-auto">Der Hub für alle Fortnite Grinder. Skins • Clips • Presets • KI Tools • Party</p>
+      <div class="mt-16 flex gap-8 justify-center">
+        <button onclick="dropIn()" class="px-20 py-8 bg-[#39FF14] text-black font-black text-3xl rounded-none border-8 border-black hover:scale-110 transition">DROP IN NOW</button>
+        <button onclick="document.getElementById('feeds').scrollIntoView({behavior:'smooth'})" class="px-20 py-8 border-8 border-[#39FF14] text-[#39FF14] font-black text-3xl hover:bg-[#39FF14] hover:text-black transition">LIVE FEEDS</button>
       </div>
-      <div id="panel-content" class="grid grid-cols-3 gap-4"></div>
     </div>
-  </div>
+  </section>
+
+  <!-- BATTLE HUB -->
+  <section id="hub" class="max-w-7xl mx-auto px-8 py-32">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div>
+        <img src="https://via.placeholder.com/700x700/111827/39FF14?text=ZY+SKIN" class="rounded-3xl border-8 border-[#39FF14]" alt="Zyztm Fortnite Skin">
+      </div>
+      <div>
+        <h2 class="text-8xl font-black fortnite-green">ZY ZTM</h2>
+        <p class="text-5xl text-[#FFD700]">CHAPTER 6 GRINDER</p>
+        <p class="mt-8 text-3xl">Alle meine Fortnite Welten an einem Ort. KI updated alles automatisch. Du feierst nur noch Victory Royale.</p>
+        <div class="mt-16 grid grid-cols-4 gap-6">
+          <a href="https://youtube.com/@zyztm" target="_blank" class="text-center"><i class="fab fa-youtube text-6xl text-red-500"></i><p class="mt-3 font-bold">@zyztm</p></a>
+          <a href="https://kick.com/zyztm" target="_blank" class="text-center"><i class="fas fa-gamepad text-6xl text-purple-500"></i><p class="mt-3 font-bold">KICK</p></a>
+          <a href="https://tiktok.com/@zyztm" target="_blank" class="text-center"><i class="fab fa-tiktok text-6xl text-pink-500"></i><p class="mt-3 font-bold">TIKTOK</p></a>
+          <a href="https://x.com/zyztm" target="_blank" class="text-center"><i class="fab fa-x-twitter text-6xl"></i><p class="mt-3 font-bold">X</p></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEEDS -->
+  <section id="feeds" class="max-w-7xl mx-auto px-8 py-32 bg-black/80">
+    <h2 class="text-7xl font-black text-center mb-16 fortnite-green">LIVE FORTNITE FEEDS • LAST ONE STANDING</h2>
+    <div class="grid md:grid-cols-3 gap-10">
+      <!-- YouTube -->
+      <div>
+        <h3 class="text-4xl font-black mb-8 flex items-center gap-4"><i class="fab fa-youtube text-red-600"></i> YOUTUBE CLIPS</h3>
+        <div id="yt-grid" class="grid gap-6"></div>
+      </div>
+      <!-- Kick -->
+      <div>
+        <h3 class="text-4xl font-black mb-8 flex items-center gap-4"><i class="fas fa-gamepad text-purple-600"></i> KICK LIVE</h3>
+        <iframe src="https://kick.com/zyztm" class="w-full h-[520px] rounded-3xl border-4 border-[#39FF14]" allowfullscreen></iframe>
+      </div>
+      <!-- TikTok -->
+      <div>
+        <h3 class="text-4xl font-black mb-8 flex items-center gap-4"><i class="fab fa-tiktok text-pink-600"></i> TIKTOK FORTNITE</h3>
+        <iframe src="https://www.tiktok.com/@zyztm" class="w-full h-[520px] rounded-3xl border-4 border-[#39FF14]" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ITEM SHOP -->
+  <section id="shop" class="max-w-7xl mx-auto px-8 py-32">
+    <h2 class="text-7xl font-black text-center mb-16 fortnite-green">ZYZTM ITEM SHOP • EXCLUSIVE LOOT</h2>
+    <div class="grid md:grid-cols-3 gap-10">
+      <div class="loot-card glass border-4 border-[#39FF14] rounded-3xl overflow-hidden">
+        <div class="h-80 bg-gradient-to-br from-purple-600 to-cyan-600 flex items-center justify-center text-9xl">🛠️</div>
+        <div class="p-10">
+          <h3 class="text-4xl font-black">PRO PRESET PACK</h3>
+          <p class="text-xl text-white/80">Meine exakten Fortnite Settings + Crosshair</p>
+          <div class="mt-10 flex justify-between">
+            <span class="text-5xl font-black text-[#FFD700]">14,99€</span>
+            <button onclick="buyLoot(1)" class="px-14 py-6 bg-[#39FF14] text-black font-black text-2xl">BUY LOOT</button>
+          </div>
+        </div>
+      </div>
+      <!-- Weitere Loot Cards einfach kopieren und ändern -->
+    </div>
+  </section>
+
+  <!-- KI TOOLS -->
+  <section id="tools" class="max-w-7xl mx-auto px-8 py-32 bg-zinc-950">
+    <h2 class="text-7xl font-black text-center mb-16 fortnite-green">FORTNITE KI TOOLS • ONLY FOR GRINDERS</h2>
+    <div class="grid md:grid-cols-3 gap-10">
+      <div onclick="skinGenerator()" class="glass border-4 border-[#FF00FF] rounded-3xl p-12 text-center cursor-pointer hover:scale-110">
+        <div class="text-9xl mb-6">🎨</div>
+        <h3 class="text-4xl font-black">AI SKIN GENERATOR</h3>
+        <p class="text-2xl">Gib einen Skin ein – KI macht dir eine neue Version</p>
+      </div>
+      <div class="glass border-4 border-[#FFD700] rounded-3xl p-12 text-center">
+        <div class="text-9xl mb-6">🎯</div>
+        <h3 class="text-4xl font-black">LOADOUT RANDOMIZER</h3>
+        <p class="text-2xl">KI baut dir den perfekten Loadout</p>
+      </div>
+      <div class="glass border-4 border-[#00FFFF] rounded-3xl p-12 text-center">
+        <div class="text-9xl mb-6">📹</div>
+        <h3 class="text-4xl font-black">CLIP HIGHLIGHT TOOL</h3>
+        <p class="text-2xl">Lade Clip hoch → KI macht Thumbnail + Titel</p>
+      </div>
+    </div>
+  </section>
 
   <script>
-    const canvas = document.getElementById('nexus');
+    // V-BUCKS + PICKAXE PARTICLES
+    const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    let w, h;
+    let w, h, particles = [];
+    class Loot { constructor() { this.reset(); } reset() { this.x = Math.random()*w; this.y = -50; this.speed = Math.random()*8 + 6; this.size = Math.random()*28 + 18; this.type = Math.random() > 0.5 ? '💰' : '⛏️'; } update() { this.y += this.speed; if(this.y > h) this.reset(); } draw() { ctx.font = this.size + 'px sans-serif'; ctx.fillText(this.type, this.x, this.y); } }
+    function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+    function animate() { ctx.fillStyle = 'rgba(10,10,10,0.25)'; ctx.fillRect(0,0,w,h); particles.forEach(p => {p.update(); p.draw();}); requestAnimationFrame(animate); }
+    window.addEventListener('resize', resize); resize(); for(let i=0;i<180;i++) particles.push(new Loot()); animate();
 
-    function resize() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    let nodes = [
-      {id:0, label:"YouTube",  x:w*0.3, y:h*0.4, vx:0, vy:0, color:"#EF4444", type:"yt"},
-      {id:1, label:"Twitch",   x:w*0.7, y:h*0.3, vx:0, vy:0, color:"#9146FF", type:"twitch"},
-      {id:2, label:"TikTok",   x:w*0.4, y:h*0.7, vx:0, vy:0, color:"#FF0050", type:"tiktok"},
-      {id:3, label:"X",        x:w*0.6, y:h*0.6, vx:0, vy:0, color:"#FFFFFF", type:"x"},
-      {id:4, label:"Discord",  x:w*0.5, y:h*0.2, vx:0, vy:0, color:"#5865F2", type:"discord"},
-      {id:5, label:"SHOP",     x:w*0.8, y:h*0.5, vx:0, vy:0, color:"#22D3EE", type:"shop"},
-      {id:6, label:"LIVE FEED",x:w*0.2, y:h*0.6, vx:0, vy:0, color:"#10B981", type:"feed"}
-    ];
-
-    let connections = [
-      [0,1],[0,2],[0,3],[0,4],[0,5],[0,6],
-      [1,5],[2,6],[3,5],[4,6]
-    ];
-
-    let flows = [];
-    class Flow {
-      constructor(from, to) {
-        this.from = from;
-        this.to = to;
-        this.progress = Math.random();
-      }
-      update() {
-        this.progress += 0.018;
-        if (this.progress > 1) this.progress = 0;
-      }
-    }
-    connections.forEach(([a,b]) => {
-      flows.push(new Flow(nodes[a], nodes[b]));
-      flows.push(new Flow(nodes[b], nodes[a]));
-    });
-
-    let mouse = {x: w/2, y: h/2, radius: 280};
-    window.addEventListener('mousemove', e => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    });
-
-    function physics() {
-      for (let i = 0; i < nodes.length; i++) {
-        let n = nodes[i];
-        n.vx *= 0.92;
-        n.vy *= 0.92;
-
-        let dx = mouse.x - n.x;
-        let dy = mouse.y - n.y;
-        let dist = Math.sqrt(dx*dx + dy*dy) || 1;
-        if (dist < mouse.radius) {
-          let force = (mouse.radius - dist) / mouse.radius * 4;
-          n.vx -= (dx / dist) * force;
-          n.vy -= (dy / dist) * force;
-        }
-
-        for (let j = i+1; j < nodes.length; j++) {
-          let m = nodes[j];
-          let dx2 = m.x - n.x;
-          let dy2 = m.y - n.y;
-          let d = Math.sqrt(dx2*dx2 + dy2*dy2) || 1;
-          if (d < 180) {
-            let f = (180 - d) / 180 * 0.8;
-            n.vx -= (dx2 / d) * f;
-            n.vy -= (dy2 / d) * f;
-            m.vx += (dx2 / d) * f;
-            m.vy += (dy2 / d) * f;
-          }
-        }
-
-        n.x += n.vx;
-        n.y += n.vy;
-        n.x = Math.max(80, Math.min(w - 80, n.x));
-        n.y = Math.max(80, Math.min(h - 80, n.y));
-      }
+    // YouTube Feed (deine echten Fortnite Videos)
+    async function loadYT() {
+      const grid = document.getElementById('yt-grid');
+      try {
+        const res = await fetch('/.netlify/functions/get-youtube-videos?channelId=UCIl8VMDMYAg8Te3a92J-aMA&maxResults=9');
+        const videos = await res.json();
+        let html = '';
+        videos.forEach(v => {
+          html += `<a href="${v.videoUrl}" target="_blank" class="block glass rounded-3xl overflow-hidden"><img src="${v.thumbnail}" class="w-full"><div class="p-5"><p class="font-bold line-clamp-2">${v.title}</p></div></a>`;
+        });
+        grid.innerHTML = html;
+      } catch(e) { grid.innerHTML = 'Lade deine Videos...'; }
     }
 
-    function draw() {
-      ctx.clearRect(0, 0, w, h);
+    function buyLoot(n) { alert(`✅ LOOT #${n} GEKAUFT! Victory Royale für dich! Datei sofort verfügbar.`); }
+    function skinGenerator() { alert('🧠 KI SKIN GENERATOR: Welchen Skin willst du neu machen? (z.B. "Renegade Raider")'); }
+    function dropIn() { alert('🪂 BATTLE BUS GESTARTET! Du bist jetzt im ZYZTM NEXUS – GRIND ON!'); }
 
-      connections.forEach(([a,b]) => {
-        let na = nodes[a], nb = nodes[b];
-        ctx.beginPath();
-        ctx.moveTo(na.x, na.y);
-        ctx.lineTo(nb.x, nb.y);
-        ctx.strokeStyle = 'rgba(192,38,211,0.15)';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      });
-
-      flows.forEach(f => {
-        f.update();
-        let x = f.from.x + (f.to.x - f.from.x) * f.progress;
-        let y = f.from.y + (f.to.y - f.from.y) * f.progress;
-        ctx.beginPath();
-        ctx.arc(x, y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(34,211,238,0.6)';
-        ctx.fill();
-      });
-
-      nodes.forEach(n => {
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, 28, 0, Math.PI * 2);
-        let grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 28);
-        grd.addColorStop(0, n.color);
-        grd.addColorStop(1, 'rgba(0,0,0,0)');
-        ctx.fillStyle = grd;
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, 28, 0, Math.PI * 2);
-        ctx.strokeStyle = n.color;
-        ctx.lineWidth = 2;
-        ctx.stroke();
-
-        ctx.fillStyle = '#fff';
-        ctx.font = '11px Orbitron';
-        ctx.textAlign = 'center';
-        ctx.fillText(n.label, n.x, n.y + 44);
-      });
-    }
-
-    canvas.addEventListener('click', e => {
-      let rect = canvas.getBoundingClientRect();
-      let cx = e.clientX - rect.left;
-      let cy = e.clientY - rect.top;
-      nodes.forEach(n => {
-        let dx = cx - n.x;
-        let dy = cy - n.y;
-        if (Math.sqrt(dx*dx + dy*dy) < 36) {
-          openPanel(n);
-        }
-      });
-    });
-
-    function openPanel(node) {
-      document.getElementById('panel').classList.remove('hidden');
-      document.getElementById('panel-title').textContent = node.label;
-      let content = document.getElementById('panel-content');
-      content.innerHTML = '';
-      let items = ['Status: ONLINE', 'Latenz: 12ms', 'Verbindungen: ' + connections.filter(c => c.includes(node.id)).length];
-      items.forEach(item => {
-        let div = document.createElement('div');
-        div.className = 'glass rounded-xl p-4 text-center text-sm';
-        div.textContent = item;
-        content.appendChild(div);
-      });
-    }
-
-    function closePanel() {
-      document.getElementById('panel').classList.add('hidden');
-    }
-
-    function animate() {
-      physics();
-      draw();
-      requestAnimationFrame(animate);
-    }
-    animate();
+    // START
+    setTimeout(loadYT, 600);
   </script>
 </body>
 </html>
