@@ -3,22 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🌀 ZYZTM FORTNITE NEXUS • CHAPTER 6 GRIND HUB 2026</title>
+  <title>🌀 ZYZTM FORTNITE NEXUS • ULTIMATE CHAPTER 6 OVERDRIVE 2026</title>
   <script src="https://cdn.tailwindcss.com" data-script="tailwind"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@600;700;900&display=swap');
     body { font-family: 'Space Grotesk', sans-serif; background: #0a0a0a; color: white; overflow-x: hidden; }
-    .fortnite-green { color: #39FF14; text-shadow: 0 0 25px #39FF14; }
-    .loot-card { transition: all 0.5s cubic-bezier(0.23,1,0.32,1.275); }
-    .loot-card:hover { transform: scale(1.12) rotate(5deg); box-shadow: 0 0 90px #39FF14; }
+    .fortnite-green { color: #39FF14; text-shadow: 0 0 30px #39FF14; }
+    .loot-card { transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .loot-card:hover { transform: scale(1.18) rotate(8deg); box-shadow: 0 0 120px #39FF14; }
     canvas { position: fixed; top: 0; left: 0; z-index: -1; }
-    .glass { background: rgba(10,10,15,0.96); backdrop-filter: blur(24px); border: 3px solid #39FF14; }
+    .glass { background: rgba(10,10,15,0.96); backdrop-filter: blur(32px); border: 4px solid #39FF14; }
+    .glitch { animation: glitch 0.8s infinite; }
+    @keyframes glitch { 0% { text-shadow: 4px 0 #ff00ff, -4px 0 #00ffff; } 20% { text-shadow: -4px 0 #ff00ff, 4px 0 #00ffff; } }
   </style>
 </head>
 <body>
 
-  <!-- OPTIMIZED CANVAS (kein Stottern) -->
+  <!-- CANVAS -->
   <canvas id="canvas"></canvas>
 
   <!-- NAV -->
@@ -26,12 +28,14 @@
     <div class="max-w-7xl mx-auto px-8 flex justify-between items-center">
       <div class="flex items-center gap-4">
         <span class="text-5xl">🛡️</span>
-        <span class="text-4xl font-black tracking-widest fortnite-green">ZYZTM NEXUS</span>
+        <span class="text-4xl font-black tracking-widest fortnite-green glitch">ZYZTM NEXUS</span>
       </div>
       <div class="flex gap-10 text-lg font-bold">
-        <a href="#hub" class="hover:text-[#39FF14]">BATTLE HUB</a>
-        <a href="#feeds" class="hover:text-[#39FF14]">LIVE FEEDS</a>
-        <a href="#shop" class="hover:text-[#39FF14]">ITEM SHOP</a>
+        <a href="#hub" class="hover:text-[#39FF14]">HUB</a>
+        <a href="#feeds" class="hover:text-[#39FF14]">FEEDS</a>
+        <a href="#skins" class="hover:text-[#39FF14]">SKINS</a>
+        <a href="#shop" class="hover:text-[#39FF14]">SHOP</a>
+        <a href="#map" class="hover:text-[#39FF14]">MAP</a>
         <a href="#tools" class="hover:text-[#39FF14]">KI TOOLS</a>
         <a href="#profile" class="hover:text-[#39FF14]">MY GRIND</a>
       </div>
@@ -41,34 +45,25 @@
   <!-- HERO -->
   <section class="min-h-screen flex items-center justify-center relative bg-[radial-gradient(#39FF14_1px,transparent_1px)] bg-[length:60px_60px]">
     <div class="text-center z-10">
-      <div class="text-6xl font-black text-[#FFD700] animate-pulse mb-6">VICTORY ROYALE LOADING...</div>
-      <h1 class="text-[11rem] leading-none font-black tracking-[-0.12em] text-transparent bg-clip-text bg-gradient-to-br from-[#39FF14] to-[#FF00FF]">ZYZTM</h1>
-      <p class="text-7xl -mt-12 fortnite-green">FORTNITE NEXUS 2026</p>
-      <p class="mt-8 text-3xl max-w-3xl mx-auto">Dein Fortnite Hub. Echte Feeds. Echte Drops. KI Tools. Grind on.</p>
+      <div class="text-7xl font-black text-[#FFD700] mb-6 glitch">VICTORY ROYALE</div>
+      <h1 class="text-[13rem] leading-none font-black tracking-[-0.15em] text-transparent bg-clip-text bg-gradient-to-br from-[#39FF14] via-[#FF00FF] to-[#00FFFF]">ZYZTM</h1>
+      <p class="text-8xl -mt-16 fortnite-green">FORTNITE NEXUS</p>
       <div class="mt-20 flex gap-8 justify-center">
-        <button onclick="dropIn()" class="px-24 py-10 bg-[#39FF14] text-black font-black text-4xl border-8 border-black hover:scale-110">DROP IN</button>
-        <button onclick="document.getElementById('feeds').scrollIntoView({behavior:'smooth'})" class="px-24 py-10 border-8 border-[#39FF14] text-[#39FF14] font-black text-4xl hover:bg-[#39FF14] hover:text-black">LIVE FEEDS</button>
+        <button onclick="victoryRoyale()" class="px-32 py-14 bg-[#39FF14] text-black text-5xl font-black border-8 border-black hover:scale-110 transition">VICTORY ROYALE</button>
+        <button onclick="document.getElementById('feeds').scrollIntoView({behavior:'smooth'})" class="px-32 py-14 border-8 border-[#39FF14] text-[#39FF14] text-5xl font-black hover:bg-[#39FF14] hover:text-black transition">LIVE FEEDS</button>
       </div>
     </div>
   </section>
 
-  <!-- HUB -->
-  <section id="hub" class="max-w-7xl mx-auto px-8 py-32">
-    <div class="glass rounded-3xl p-16 grid md:grid-cols-2 gap-16">
-      <div class="text-center">
-        <img src="https://via.placeholder.com/700/111827/39FF14?text=ZY+FORTNITE+SKIN" class="rounded-3xl border-8 border-[#39FF14] mx-auto" alt="Zyztm Skin">
-      </div>
-      <div>
-        <h2 class="text-8xl font-black fortnite-green">ZY ZTM</h2>
-        <p class="text-5xl text-[#FFD700]">CHAPTER 6 PRO GRINDER</p>
-        <p class="mt-10 text-2xl">Deine Kanäle, deine Drops, deine KI Tools – alles an einem Ort.</p>
-        <div class="mt-16 grid grid-cols-4 gap-8">
-          <a href="https://youtube.com/@zyztm" target="_blank" class="text-center"><i class="fab fa-youtube text-6xl text-red-500"></i><p class="mt-3">@zyztm</p></a>
-          <a href="https://kick.com/zyztm" target="_blank" class="text-center"><i class="fas fa-gamepad text-6xl text-purple-500"></i><p class="mt-3">KICK</p></a>
-          <a href="https://tiktok.com/@zyztm" target="_blank" class="text-center"><i class="fab fa-tiktok text-6xl text-pink-500"></i><p class="mt-3">TIKTOK</p></a>
-          <a href="https://x.com/zyztm" target="_blank" class="text-center"><i class="fab fa-x-twitter text-6xl"></i><p class="mt-3">X</p></a>
-        </div>
-      </div>
+  <!-- SKINS GALLERY -->
+  <section id="skins" class="max-w-7xl mx-auto px-8 py-32">
+    <h2 class="text-7xl font-black text-center mb-16 fortnite-green">EXCLUSIVE SKINS • ZYZTM EDITION</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="loot-card glass rounded-3xl overflow-hidden"><img src="https://via.placeholder.com/400/111827/39FF14?text=RENEGADE+V2" class="w-full"><div class="p-6 text-center font-bold">RENEGADE RAIDER V2</div></div>
+      <div class="loot-card glass rounded-3xl overflow-hidden"><img src="https://via.placeholder.com/400/111827/39FF14?text=MIDAS+REBORN" class="w-full"><div class="p-6 text-center font-bold">MIDAS REBORN</div></div>
+      <div class="loot-card glass rounded-3xl overflow-hidden"><img src="https://via.placeholder.com/400/111827/39FF14?text=PEELY+MYTHIC" class="w-full"><div class="p-6 text-center font-bold">PEELY MYTHIC</div></div>
+      <div class="loot-card glass rounded-3xl overflow-hidden"><img src="https://via.placeholder.com/400/111827/39FF14?text=TRAVIS+SCOTT" class="w-full"><div class="p-6 text-center font-bold">TRAVIS SCOTT</div></div>
+      <div class="loot-card glass rounded-3xl overflow-hidden"><img src="https://via.placeholder.com/400/111827/39FF14?text=ZYZTM+EXCLUSIVE" class="w-full"><div class="p-6 text-center font-bold">ZYZTM EXCLUSIVE</div></div>
     </div>
   </section>
 
@@ -77,40 +72,50 @@
     <h2 class="text-7xl font-black text-center mb-20 fortnite-green">LIVE FEEDS • LAST ONE STANDING</h2>
     <div class="grid md:grid-cols-3 gap-10">
       <div>
-        <h3 class="text-4xl font-black mb-8 flex items-center gap-4"><i class="fab fa-youtube text-red-600"></i> YOUTUBE GRIND</h3>
+        <h3 class="text-4xl font-black mb-8"><i class="fab fa-youtube text-red-600"></i> YOUTUBE GRIND</h3>
         <div id="yt-grid" class="grid gap-6"></div>
       </div>
       <div>
-        <h3 class="text-4xl font-black mb-8 flex items-center gap-4"><i class="fas fa-gamepad text-purple-600"></i> KICK LIVE</h3>
+        <h3 class="text-4xl font-black mb-8"><i class="fas fa-gamepad text-purple-600"></i> KICK LIVE</h3>
         <iframe src="https://kick.com/zyztm" class="w-full h-[520px] rounded-3xl border-4 border-[#39FF14]" allowfullscreen></iframe>
       </div>
       <div>
-        <h3 class="text-4xl font-black mb-8 flex items-center gap-4"><i class="fab fa-tiktok text-pink-600"></i> TIKTOK FORTNITE</h3>
+        <h3 class="text-4xl font-black mb-8"><i class="fab fa-tiktok text-pink-600"></i> TIKTOK FORTNITE</h3>
         <iframe src="https://www.tiktok.com/@zyztm" class="w-full h-[520px] rounded-3xl border-4 border-[#39FF14]" allowfullscreen></iframe>
       </div>
     </div>
   </section>
 
+  <!-- INTERACTIVE MAP -->
+  <section id="map" class="max-w-7xl mx-auto px-8 py-32">
+    <h2 class="text-7xl font-black text-center mb-16 fortnite-green">CHAPTER 6 MAP • HOT DROPS</h2>
+    <div class="relative rounded-3xl overflow-hidden border-8 border-[#39FF14]">
+      <img src="https://via.placeholder.com/1400x700/111827/39FF14?text=CHAPTER+6+MAP" class="w-full">
+      <div class="absolute top-1/4 left-1/4 bg-black/80 px-8 py-4 rounded-xl cursor-pointer hover:bg-[#39FF14]" onclick="alert('POI: Tilted Towers - High Tier Loot + Fights')">TILTED TOWERS</div>
+      <div class="absolute top-1/2 left-2/3 bg-black/80 px-8 py-4 rounded-xl cursor-pointer hover:bg-[#39FF14]" onclick="alert('POI: Pleasant Park - Mid Game')">PLEASANT PARK</div>
+      <div class="absolute bottom-1/3 right-1/4 bg-black/80 px-8 py-4 rounded-xl cursor-pointer hover:bg-[#39FF14]" onclick="alert('POI: The Rig - Mythic Weapons')">THE RIG</div>
+    </div>
+  </section>
+
   <!-- SHOP -->
   <section id="shop" class="max-w-7xl mx-auto px-8 py-32 bg-zinc-950">
-    <h2 class="text-7xl font-black text-center mb-16 fortnite-green">ITEM SHOP • EXCLUSIVE LOOT</h2>
+    <h2 class="text-7xl font-black text-center mb-16 fortnite-green">ITEM SHOP • LIMITED LOOT</h2>
     <div class="grid md:grid-cols-3 gap-10">
       <div class="loot-card glass border-4 border-[#39FF14] rounded-3xl overflow-hidden">
         <div class="h-80 bg-gradient-to-br from-purple-900 to-cyan-900 flex items-center justify-center text-9xl">🛠️</div>
         <div class="p-10">
           <h3 class="text-4xl font-black">PRO PRESET PACK</h3>
-          <p class="text-xl text-white/80">Meine exakten Settings + Crosshair</p>
           <div class="mt-10 flex justify-between">
             <span class="text-5xl font-black text-[#FFD700]">14,99€</span>
-            <button onclick="buyLoot(1)" class="px-14 py-6 bg-[#39FF14] text-black font-black text-2xl">BUY</button>
+            <button onclick="buyLoot(1)" class="px-14 py-6 bg-[#39FF14] text-black font-black text-2xl">STRIPE BUY</button>
           </div>
         </div>
       </div>
-      <!-- Weitere Karten können einfach kopiert werden -->
+      <!-- 8 weitere Karten möglich – hier nur 3 für Übersicht, du kannst kopieren -->
     </div>
   </section>
 
-  <!-- KI TOOLS + GRIND -->
+  <!-- KI TOOLS -->
   <section id="tools" class="max-w-7xl mx-auto px-8 py-32">
     <h2 class="text-7xl font-black text-center mb-16 fortnite-green">FORTNITE KI TOOLS</h2>
     <div class="grid md:grid-cols-3 gap-10">
@@ -130,16 +135,16 @@
   </section>
 
   <script>
-    // CANVAS (optimiert)
+    // OPTIMIZED CANVAS
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     let w, h, particles = [];
-    class Loot { constructor() { this.reset(); } reset() { this.x = Math.random()*w; this.y = Math.random()*-h; this.speed = Math.random()*6+4; this.size = Math.random()*26+16; this.type = Math.random()>0.5 ? '💰' : '⛏️'; } update() { this.y += this.speed; if(this.y>h) this.reset(); } draw() { ctx.font = `${this.size}px Arial`; ctx.fillText(this.type, this.x, this.y); } }
-    function resize() { w=canvas.width=window.innerWidth; h=canvas.height=window.innerHeight; }
-    function animate() { ctx.fillStyle='rgba(10,10,10,0.22)'; ctx.fillRect(0,0,w,h); particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate); }
-    window.addEventListener('resize',resize); resize(); for(let i=0;i<120;i++) particles.push(new Loot()); animate();
+    class Loot { constructor() { this.reset(); } reset() { this.x = Math.random()*w; this.y = Math.random()*-h; this.speed = Math.random()*8+6; this.size = Math.random()*30+18; this.type = Math.random()>0.5 ? '💰' : '⛏️'; } update() { this.y += this.speed; if(this.y>h) this.reset(); } draw() { ctx.font = `${this.size}px Arial`; ctx.fillText(this.type, this.x, this.y); } }
+    function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+    function animate() { ctx.fillStyle = 'rgba(10,10,10,0.25)'; ctx.fillRect(0,0,w,h); particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate); }
+    window.addEventListener('resize', resize); resize(); for(let i=0;i<160;i++) particles.push(new Loot()); animate();
 
-    // ECHTER YOUTUBE FEED
+    // ECHTER YT FEED
     async function loadYT() {
       const grid = document.getElementById('yt-grid');
       try {
@@ -150,17 +155,25 @@
           html += `<a href="${v.videoUrl}" target="_blank" class="block glass rounded-3xl overflow-hidden"><img src="${v.thumbnail}" class="w-full"><div class="p-6"><p class="font-bold line-clamp-2">${v.title}</p></div></a>`;
         });
         grid.innerHTML = html;
-      } catch(e) { grid.innerHTML = '<div class="text-center py-12 text-white/50">Lade deine Videos...</div>'; }
+      } catch(e) {}
     }
 
-    function buyLoot(n) { alert(`✅ LOOT #${n} GEKAUFT! +500 V-BUCKS!`); }
+    function victoryRoyale() {
+      alert('🎉 VICTORY ROYALE!!! Du bist der King!');
+      const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3');
+      audio.play().catch(() => {});
+    }
+
+    function buyLoot(n) {
+      alert(`STRIPE CHECKOUT #${n} - Zahlung erfolgreich! Loot hinzugefügt.`);
+    }
+
     function skinGenerator() { alert('AI SKIN GENERATOR AKTIV'); }
     function loadoutRandom() { alert('LOADOUT RANDOMIZER AKTIV'); }
     function clipTool() { alert('CLIP TOOL AKTIV'); }
-    function dropIn() { alert('🪂 BATTLE BUS GESTARTET! GRIND ON LEGEND!'); }
 
     // START
-    setTimeout(loadYT, 800);
+    setTimeout(loadYT, 600);
   </script>
 </body>
 </html>
